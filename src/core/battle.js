@@ -5,9 +5,5 @@ export class Battle {
     this.armies = armies;
   }
 
-
-
-  start() {
-
-  }
+  start() {}
 }
