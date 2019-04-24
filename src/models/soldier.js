@@ -1,27 +1,34 @@
-import Unit from "./unit";
+import Unit from './unit';
 
 export default class Soldier extends Unit {
-  _experience = 0; // [0-50]
+	_experience = 0; // [0-50]
 
-  set experience(val) {
-    if (val > 0 && val <= 50) {
-      this._experience = val;
-    } else if (val < 0) {
-      this._experience = 1;
-    } else {
-      this._experience = 50;
-    }
-  }
+	constructor(health, recharge) {
+		super(health, recharge);
+	}
 
-  get experience() {
-    return this._experience;
-  }
+	set experience(val) {
+		if (val > 50) {
+			this._experience = 50;
+		} else if (val < 0) {
+			this._experience = 1;
+		} else {
+			this._experience = val;
+		}
+	}
 
-  attackSuccess() {
-    // number
-  }
+	get experience() {
+		return this._experience;
+	}
 
-  makeDamage() {
-    // number
-  }
+	attackSuccess() {
+		return (
+			(super.attackSuccess()) * (1 + this.health / 100) * Math.random(50 + this.experience, 100)) /
+			100
+		);
+	}
+
+	makeDamage() {
+		return super.makeDamage() + this.experience / 100;
+	}
 }

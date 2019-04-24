@@ -1,9 +1,11 @@
 export class Battle {
-  armies = [];
+	armies = [];
 
-  constructor(armies) {
-    this.armies = armies;
-  }
+	constructor(armies) {
+		this.armies = armies;
+	}
 
-  start() {}
+	start() {
+		console.log(this.armies);
+	}
 }
