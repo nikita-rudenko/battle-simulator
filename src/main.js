@@ -1,19 +1,15 @@
 import fs from 'fs';
 import { Battle } from './core/battle';
-import Soldier from './models/soldier';
-import { SoldierFactory } from './factory/soldierFactory';
+import { Factory } from './factory/Factory';
 
 export class Application {
-	async init() {
-		let json = JSON.parse(fs.readFileSync(__dirname + '/../data/data.json'));
+  async init() {
+    const json = JSON.parse(fs.readFileSync(__dirname + '/../data/data.json'));
 
-		const factory = SoldierFactory.getInstance();
-		const soldier = new Soldier();
-		const guy = factory.createSoldier(soldier);
+    const factory = Factory.getInstance();
+    const armies = factory.createArmies(json.armies);
 
-		console.log(guy);
-
-		const battle = new Battle(json.armies);
-		battle.start();
-	}
+    const battle = new Battle(armies);
+    battle.start();
+  }
 }

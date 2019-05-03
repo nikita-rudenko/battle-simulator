@@ -1,4 +1,4 @@
-import BaseUnit from "./baseUnit";
+import BaseUnit from './BaseUnit';
 
 export default class Squad extends BaseUnit {
   constructor(units, type) {
