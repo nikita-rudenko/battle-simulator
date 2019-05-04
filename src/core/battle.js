@@ -1,3 +1,5 @@
+import { getRandomFromArr } from '../helpers/helpers';
+
 export class Battle {
   armies = [];
 
@@ -6,6 +8,20 @@ export class Battle {
   }
 
   start() {
-    console.log(this.armies);
+    let armiesArr = this.armies;
+
+    const attackingArmy = getRandomFromArr(armiesArr);
+    const attackingSquad = getRandomFromArr(attackingArmy.units);
+
+    const defArmy = getRandomFromArr(armiesArr);
+    const defSquad = getRandomFromArr(defArmy.units);
+
+    if (attackingSquad.attackSuccess() > defSquad.attackSuccess()) {
+      // console.log(defSquad);
+      const attack = attackingSquad.makeDamage();
+      // console.log(attack);
+      defSquad.damageReceived(attack);
+      console.log(defSquad);
+    }
   }
 }

@@ -1,7 +1,7 @@
 import Unit from './Unit';
 
 export default class Soldier extends Unit {
-  _experience = 0; // [0-50]
+  _experience = 50; // [0-50]
 
   constructor(health, recharge) {
     super(health, recharge);
@@ -28,6 +28,10 @@ export default class Soldier extends Unit {
         Math.random(50 + this.experience, 100)) /
       100
     );
+  }
+
+  damageReceived(dmg) {
+    super.damageReceived(dmg);
   }
 
   makeDamage() {

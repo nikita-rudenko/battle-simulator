@@ -1,13 +1,16 @@
 import Squad from './Squad';
 
 export default class Army extends Squad {
-  constructor(units, strategy) {
+  constructor(units, strategy, name) {
     super();
     this.units = units;
     this.strategy = strategy;
+    this.name = name;
   }
 
-  isAlive() {}
+  isAlive() {
+    return this.units.length ? true : false;
+  }
 
   checkSquads() {}
 }

@@ -18,7 +18,9 @@ export default class Unit extends BaseUnit {
   }
 
   damageReceived(dmg) {
-    this.setHealth(this.getHealth - dmg);
+    console.log(this.getHealth(), dmg);
+
+    this.setHealth(this.getHealth() - dmg);
   }
 
   isAlive() {
@@ -41,7 +43,7 @@ export default class Unit extends BaseUnit {
   }
 
   setHealth(val) {
-    if (val > 0) {
+    if (val < 0) {
       this.health = 0;
     } else if (val > 100) {
       this.health = 100;

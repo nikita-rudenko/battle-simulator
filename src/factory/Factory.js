@@ -46,7 +46,8 @@ export class Factory {
 
   createSquads = arr => arr.map(squad => this.createSquad(squad));
 
-  createArmy = data => new Army(this.createSquads(data.squads), data.name);
+  createArmy = data =>
+    new Army(this.createSquads(data.squads), data.strategy, data.name);
 
   createArmies = arr => arr.map(army => this.createArmy(army));
 }
