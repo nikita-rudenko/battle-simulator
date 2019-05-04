@@ -18,13 +18,11 @@ export default class Unit extends BaseUnit {
   }
 
   damageReceived(dmg) {
-    console.log(this.getHealth(), dmg);
-
     this.setHealth(this.getHealth() - dmg);
   }
 
   isAlive() {
-    return this.health > 0;
+    return this.getHealth() > 0;
   }
 
   startRecharge() {

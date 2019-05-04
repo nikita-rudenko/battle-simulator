@@ -4,8 +4,8 @@ import { getGeometricMean } from '../helpers/helpers';
 export default class Squad extends Unit {
   constructor(type, units) {
     super();
-    this.units = units;
     this.type = type;
+    this.units = units;
   }
 
   makeDamage() {
@@ -18,6 +18,7 @@ export default class Squad extends Unit {
 
   isAlive() {
     // bool
+    return this.units.some(unit => unit.health > 0);
   }
 
   attackSuccess() {
@@ -31,6 +32,10 @@ export default class Squad extends Unit {
     const calcDamage = Math.ceil((dmg / this.units.length).toFixed(2) * 100);
     // console.log(calcDamage);
     this.units.map(unit => unit.damageReceived(calcDamage));
+  }
+
+  checkUnits() {
+    this.units = this.units.filter(unit => unit.isAlive());
   }
 
   incrementExperience() {}

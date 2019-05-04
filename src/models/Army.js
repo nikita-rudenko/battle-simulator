@@ -12,5 +12,7 @@ export default class Army extends Squad {
     return this.units.length ? true : false;
   }
 
-  checkSquads() {}
+  checkSquads() {
+    this.units = this.units.filter(squad => squad.isAlive());
+  }
 }

@@ -15,15 +15,14 @@ export default class Vehicle extends Unit {
 
   attackSuccess() {
     // 0.5 * (1 + vehicle.health / 100) * gavg(operators.attack_success)
-    let suc =
-      super.attackSuccess() *
-      getGeometricMean(this._operators.map(op => op.attackSuccess()));
-    suc = (suc * 100).toFixed(2);
-    return suc;
+    let success =
+      0.5 * getGeometricMean(this._operators.map(op => op.attackSuccess()));
+    success = (success * 100).toFixed(2);
+    return success;
   }
 
   getTotalHealth() {
-    return this.operators.map(op => op.health);
+    return this._operators.map(op => op.health);
   }
 
   damageReceived(dmg) {
@@ -36,11 +35,11 @@ export default class Vehicle extends Unit {
 
   setRecharge() {}
 
-  isAlive() {}
-
-  incExpForOperators() {
-    this.operators.map(operator => operator.incrementExperience());
+  isAlive() {
+    return this.getTotalHealth() && this.health ? true : false;
   }
 
-  _delete() {}
+  incExpForOperators() {
+    // this.operators.map(operator => operator.incrementExperience());
+  }
 }
