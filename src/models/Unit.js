@@ -8,16 +8,16 @@ export default class Unit extends BaseUnit {
     this.time = 0;
   }
 
-  makeDamage() {
-    return 0.05;
-  }
-
   attackSuccess() {
     if (this.isRecharged()) {
       return 0.5 * (1 + this.health / 100);
     } else {
       return 0;
     }
+  }
+
+  makeDamage() {
+    return 0.05;
   }
 
   damageReceived(dmg) {

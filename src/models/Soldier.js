@@ -8,17 +8,8 @@ export default class Soldier extends Unit {
     super(health, recharge);
   }
 
-  setExperience(val) {
-    if (val > 50) {
-      this._experience = 50;
-    } else if (val < 0) {
-      this._experience = 1;
-    } else {
-      this._experience = val;
-    }
-  }
-
   attackSuccess() {
+    // 0.5 * (1 + health/100) * random(50 + experience, 100) / 100
     return (
       (super.attackSuccess() *
         (1 + this.health / 100) *
@@ -27,15 +18,26 @@ export default class Soldier extends Unit {
     );
   }
 
+  makeDamage() {
+    // 0.05 + experience / 100
+    return super.makeDamage() + this.experience / 100;
+  }
+
   damageReceived(dmg) {
     super.damageReceived(dmg);
   }
 
-  makeDamage() {
-    return super.makeDamage() + this.experience / 100;
-  }
-
   incrementExperience() {
     this.setExperience(this._experience + 1);
+  }
+
+  setExperience(val) {
+    if (val > 50) {
+      this._experience = 50;
+    } else if (val < 0) {
+      this._experience = 1;
+    } else {
+      this._experience = val;
+    }
   }
 }

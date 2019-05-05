@@ -2,23 +2,11 @@ import Unit from './Unit';
 import { getGeometricMean } from '../helpers/helpers';
 
 export default class Squad extends Unit {
+  _power = 0;
   constructor(type, units) {
     super();
     this.type = type;
     this.units = units;
-    this.power = 0;
-  }
-
-  makeDamage() {
-    let sum = 0;
-    for (let i = 0; i < this.units.length; i++) {
-      sum += this.units[i].makeDamage();
-    }
-    return sum;
-  }
-
-  isAlive() {
-    return this.units.some(unit => unit.health > 0);
   }
 
   attackSuccess() {
@@ -26,10 +14,21 @@ export default class Squad extends Unit {
     return getGeometricMean(this.units.map(unit => unit.attackSuccess()));
   }
 
+  makeDamage() {
+    const damage = this.units.reduce((sum, unit) => {
+      return (sum += unit.makeDamage());
+    }, 0);
+    return damage;
+  }
+
   damageReceived(dmg) {
     // dmg / length
     const calcDamage = Math.floor((dmg / this.units.length).toFixed(2) * 100);
     this.units.map(unit => unit.damageReceived(calcDamage));
+  }
+
+  isAlive() {
+    return this.units.some(unit => unit.health > 0);
   }
 
   checkUnits() {
@@ -45,9 +44,9 @@ export default class Squad extends Unit {
   }
 
   getPower() {
-    this.power = this.units.reduce((sum, unit) => {
+    this._power = this.units.reduce((sum, unit) => {
       return sum + unit.getPower();
     }, 0);
-    return this.power;
+    return this._power;
   }
 }

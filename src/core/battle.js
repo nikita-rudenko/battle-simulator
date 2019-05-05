@@ -1,5 +1,5 @@
 import { getRandomFromArr } from '../helpers/helpers';
-import Strategy from '../strategy/strategy';
+import Strategy from '../strategy/Strategy';
 
 export class Battle {
   armies = [];
@@ -21,7 +21,7 @@ export class Battle {
       const defArmy = getRandomFromArr(temp);
       // define strategy
       const target = new Strategy(attackingArmy.strategy);
-      // find a target squad depending on the strategy
+      // find target squad depending on the strategy
       const defSquad = target.findTarget(defArmy.units);
 
       if (attackingSquad.attackSuccess() > defSquad.attackSuccess()) {
@@ -32,6 +32,8 @@ export class Battle {
         defArmy.checkSquads();
         attackingSquad.startRecharge();
         attackingSquad.incrementExperience();
+      } else {
+        console.log(attackingArmy.name + ' failed to attack ' + defArmy.name);
       }
 
       // filter out defeated armies
