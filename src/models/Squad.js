@@ -38,4 +38,8 @@ export default class Squad extends Unit {
   startRecharge() {
     this.units.map(unit => unit.startRecharge());
   }
+
+  incrementExperience() {
+    this.units.map(unit => unit.incrementExperience());
+  }
 }

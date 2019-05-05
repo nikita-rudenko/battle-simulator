@@ -16,17 +16,16 @@ export default class Unit extends BaseUnit {
     if (this.isRecharged()) {
       return 0.5 * (1 + this.health / 100);
     } else {
-      // console.log('Recharging');
       return 0;
     }
   }
 
   damageReceived(dmg) {
-    this.setHealth(this.getHealth() - dmg);
+    this.setHealth(this.health - dmg);
   }
 
   isAlive() {
-    return this.getHealth() > 0;
+    return this.health > 0;
   }
 
   startRecharge() {
@@ -35,10 +34,6 @@ export default class Unit extends BaseUnit {
 
   isRecharged() {
     return Date.now() - this.time > this.recharge;
-  }
-
-  getHealth() {
-    return this.health;
   }
 
   setHealth(val) {

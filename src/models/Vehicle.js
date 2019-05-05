@@ -48,4 +48,8 @@ export default class Vehicle extends Unit {
   isAlive() {
     return this.getTotalHealth() && this.health ? true : false;
   }
+
+  incrementExperience() {
+    this._operators.map(op => op.incrementExperience());
+  }
 }

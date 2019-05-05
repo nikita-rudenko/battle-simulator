@@ -27,6 +27,7 @@ export class Battle {
         defSquad.checkUnits();
         defArmy.checkSquads();
         attackingSquad.startRecharge();
+        attackingSquad.incrementExperience();
       }
 
       // filter out defeated armies
