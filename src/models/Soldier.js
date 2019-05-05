@@ -36,8 +36,6 @@ export default class Soldier extends Unit {
   }
 
   incrementExperience() {
-    console.log(this._experience);
-
     this.setExperience(this._experience + 1);
   }
 }

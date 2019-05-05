@@ -1,4 +1,5 @@
 import { getRandomFromArr } from '../helpers/helpers';
+import Strategy from '../strategy/strategy';
 
 export class Battle {
   armies = [];
@@ -16,9 +17,12 @@ export class Battle {
 
       // filter out attacking army
       const temp = armiesArr.filter(army => army !== attackingArmy);
-
-      let defArmy = getRandomFromArr(temp);
-      let defSquad = getRandomFromArr(defArmy.units);
+      // choose random target army
+      const defArmy = getRandomFromArr(temp);
+      // define strategy
+      const target = new Strategy(attackingArmy.strategy);
+      // find a target squad depending on the strategy
+      const defSquad = target.findTarget(defArmy.units);
 
       if (attackingSquad.attackSuccess() > defSquad.attackSuccess()) {
         console.log(attackingArmy.name + ' attacks ' + defArmy.name);

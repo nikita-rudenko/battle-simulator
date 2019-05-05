@@ -45,4 +45,9 @@ export default class Unit extends BaseUnit {
       this.health = val;
     }
   }
+
+  getPower() {
+    const success = this.attackSuccess();
+    return Math.floor(success + +this.health);
+  }
 }

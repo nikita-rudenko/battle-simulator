@@ -6,6 +6,7 @@ export default class Squad extends Unit {
     super();
     this.type = type;
     this.units = units;
+    this.power = 0;
   }
 
   makeDamage() {
@@ -41,5 +42,12 @@ export default class Squad extends Unit {
 
   incrementExperience() {
     this.units.map(unit => unit.incrementExperience());
+  }
+
+  getPower() {
+    this.power = this.units.reduce((sum, unit) => {
+      return sum + unit.getPower();
+    }, 0);
+    return this.power;
   }
 }
