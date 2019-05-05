@@ -13,21 +13,31 @@ export class Battle {
     while (armiesArr.length > 1) {
       const attackingArmy = getRandomFromArr(armiesArr);
       const attackingSquad = getRandomFromArr(attackingArmy.units);
+
+      // filter out attacking army
       const temp = armiesArr.filter(army => army !== attackingArmy);
 
       let defArmy = getRandomFromArr(temp);
       let defSquad = getRandomFromArr(defArmy.units);
 
       if (attackingSquad.attackSuccess() > defSquad.attackSuccess()) {
+        console.log(attackingArmy.name + ' attacks ' + defArmy.name);
         const attack = attackingSquad.makeDamage();
         defSquad.damageReceived(attack);
-        defSquad.isAlive();
         defSquad.checkUnits();
         defArmy.checkSquads();
+        attackingSquad.startRecharge();
       }
-      armiesArr = armiesArr.filter(army => army.isAlive());
+
+      // filter out defeated armies
+      armiesArr = armiesArr.filter(army => {
+        if (!army.isAlive()) {
+          console.log('☠ ' + defArmy.name + ' has been defeated ☠');
+        }
+        return army.isAlive();
+      });
     }
 
-    console.log(armiesArr[0].name);
+    console.log('🎉🎉🎉  The winner is ' + armiesArr[0].name + ' 🎉🎉🎉');
   }
 }

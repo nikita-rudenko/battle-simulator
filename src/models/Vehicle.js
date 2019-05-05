@@ -1,5 +1,5 @@
 import Unit from './Unit';
-import { getGeometricMean, getSum } from '../helpers/helpers';
+import { getGeometricMean, getSum, getRandomFromArr } from '../helpers/helpers';
 
 export default class Vehicle extends Unit {
   constructor(health, recharge, operators) {
@@ -27,19 +27,25 @@ export default class Vehicle extends Unit {
 
   damageReceived(dmg) {
     // 60% vehicle
-    const d = Math.ceil(dmg * 0.6);
-    super.damageReceived(d);
-    //20% random operator
+    const vehicleDmg = Math.floor(dmg * 0.6);
+    // 20% random operator
+    const randDmg = Math.floor(dmg * 0.2);
     // 10% all
-  }
+    const allDmg = Math.floor(dmg * 0.1);
 
-  setRecharge() {}
+    super.damageReceived(vehicleDmg);
+    const randomOperator = getRandomFromArr(this._operators);
+
+    this._operators.map(op => {
+      if (op === randomOperator) {
+        op.damageReceived(randDmg);
+      } else {
+        op.damageReceived(allDmg);
+      }
+    });
+  }
 
   isAlive() {
     return this.getTotalHealth() && this.health ? true : false;
-  }
-
-  incExpForOperators() {
-    // this.operators.map(operator => operator.incrementExperience());
   }
 }

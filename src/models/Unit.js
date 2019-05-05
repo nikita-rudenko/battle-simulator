@@ -4,8 +4,7 @@ export default class Unit extends BaseUnit {
   constructor(health, recharge) {
     super();
     this.health = health;
-    this.recharge = recharge;
-    this.isRecharged = true;
+    this.recharge = recharge; // [100-2000]
     this.time = 0;
   }
 
@@ -14,7 +13,12 @@ export default class Unit extends BaseUnit {
   }
 
   attackSuccess() {
-    return 0.5 * (1 + this.health / 100);
+    if (this.isRecharged()) {
+      return 0.5 * (1 + this.health / 100);
+    } else {
+      // console.log('Recharging');
+      return 0;
+    }
   }
 
   damageReceived(dmg) {
@@ -26,14 +30,11 @@ export default class Unit extends BaseUnit {
   }
 
   startRecharge() {
-    this.isRecharged = false;
     this.time = Date.now();
   }
 
   isRecharged() {
-    if (Date.now() - this.time > this.recharge) {
-      this.isRecharged = true;
-    }
+    return Date.now() - this.time > this.recharge;
   }
 
   getHealth() {

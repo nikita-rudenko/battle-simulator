@@ -17,7 +17,6 @@ export default class Squad extends Unit {
   }
 
   isAlive() {
-    // bool
     return this.units.some(unit => unit.health > 0);
   }
 
@@ -27,10 +26,8 @@ export default class Squad extends Unit {
   }
 
   damageReceived(dmg) {
-    // damage: number
     // dmg / length
-    const calcDamage = Math.ceil((dmg / this.units.length).toFixed(2) * 100);
-    // console.log(calcDamage);
+    const calcDamage = Math.floor((dmg / this.units.length).toFixed(2) * 100);
     this.units.map(unit => unit.damageReceived(calcDamage));
   }
 
@@ -38,7 +35,7 @@ export default class Squad extends Unit {
     this.units = this.units.filter(unit => unit.isAlive());
   }
 
-  incrementExperience() {}
-
-  setRecharge() {}
+  startRecharge() {
+    this.units.map(unit => unit.startRecharge());
+  }
 }
